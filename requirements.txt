@@ -1,5 +1,9 @@
 boto3
 pandas
+sqlite3
+sqlalchemy
+boto3
+pandas
 sqlalchemy
 python-dotenv
 dotenv
