@@ -1,4 +1,5 @@
 boto3
 pandas
-sqlite3
 sqlalchemy
+python-dotenv
+dotenv

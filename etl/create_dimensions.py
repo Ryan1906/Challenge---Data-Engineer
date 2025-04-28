@@ -1,0 +1,40 @@
+import sqlite3
+from etl.config import DB_PATH
+
+def create_dimensions():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    # Crear tabla de equipos
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS teams (
+            team_id INTEGER PRIMARY KEY,
+            team_name TEXT UNIQUE
+        )
+    ''')
+
+    # Crear tabla de estadios
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS stadiums (
+            stadium_id INTEGER PRIMARY KEY,
+            stadium_name TEXT UNIQUE
+        )
+    ''')
+
+    # Crear tabla de árbitros
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS referees (
+            referee_id INTEGER PRIMARY KEY,
+            referee_name TEXT UNIQUE
+        )
+    ''')
+
+    # Insertar datos únicos en las tablas dimensionales
+    cursor.execute('INSERT OR IGNORE INTO teams SELECT DISTINCT home_team_id, home_team_name FROM matches')
+    cursor.execute('INSERT OR IGNORE INTO teams SELECT DISTINCT away_team_id, away_team_name FROM matches')
+    cursor.execute('INSERT OR IGNORE INTO stadiums SELECT DISTINCT stadium_id, stadium_name FROM matches')
+    cursor.execute('INSERT OR IGNORE INTO referees SELECT DISTINCT referee_id, referee_name FROM matches')
+
+    conn.commit()
+    conn.close()
+    print("Tablas dimensionales creadas correctamente.")
