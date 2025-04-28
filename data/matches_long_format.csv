@@ -1,0 +1,141 @@
+match_id,match_date,variable,value
+69210,2010-01-23,home_team_name,Real Valladolid
+69213,2010-04-17,home_team_name,Espanyol
+69214,2010-04-24,home_team_name,Barcelona
+69218,2009-12-05,home_team_name,RC Deportivo La Coruña
+69219,2010-01-10,home_team_name,Tenerife
+69220,2010-01-30,home_team_name,Sporting Gijón
+69221,2010-04-14,home_team_name,Barcelona
+69224,2010-03-14,home_team_name,Barcelona
+69226,2010-03-06,home_team_name,Almería
+69227,2010-03-21,home_team_name,Real Zaragoza
+69229,2009-09-12,home_team_name,Getafe
+69233,2010-02-20,home_team_name,Barcelona
+69237,2010-02-14,home_team_name,Atlético Madrid
+69238,2010-02-27,home_team_name,Barcelona
+69239,2010-05-08,home_team_name,Sevilla
+69240,2010-02-06,home_team_name,Barcelona
+69241,2010-05-04,home_team_name,Barcelona
+69242,2010-05-16,home_team_name,Barcelona
+69243,2010-01-16,home_team_name,Barcelona
+69244,2010-05-01,home_team_name,Villarreal
+69247,2010-04-03,home_team_name,Barcelona
+69250,2009-11-07,home_team_name,Barcelona
+69252,2009-10-17,home_team_name,Valencia
+69253,2009-10-25,home_team_name,Barcelona
+69254,2009-09-22,home_team_name,Racing Santander
+69255,2009-09-26,home_team_name,Málaga
+69256,2009-10-03,home_team_name,Barcelona
+69257,2010-03-24,home_team_name,Barcelona
+69259,2010-04-10,home_team_name,Real Madrid
+69262,2009-11-29,home_team_name,Barcelona
+69267,2009-12-02,home_team_name,Xerez
+69277,2009-10-31,home_team_name,Osasuna
+69288,2009-11-21,home_team_name,Athletic Club
+69292,2009-09-19,home_team_name,Barcelona
+69298,2010-03-27,home_team_name,Mallorca
+69210,2010-01-23,away_team_name,Barcelona
+69213,2010-04-17,away_team_name,Barcelona
+69214,2010-04-24,away_team_name,Xerez
+69218,2009-12-05,away_team_name,Barcelona
+69219,2010-01-10,away_team_name,Barcelona
+69220,2010-01-30,away_team_name,Barcelona
+69221,2010-04-14,away_team_name,RC Deportivo La Coruña
+69224,2010-03-14,away_team_name,Valencia
+69226,2010-03-06,away_team_name,Barcelona
+69227,2010-03-21,away_team_name,Barcelona
+69229,2009-09-12,away_team_name,Barcelona
+69233,2010-02-20,away_team_name,Racing Santander
+69237,2010-02-14,away_team_name,Barcelona
+69238,2010-02-27,away_team_name,Málaga
+69239,2010-05-08,away_team_name,Barcelona
+69240,2010-02-06,away_team_name,Getafe
+69241,2010-05-04,away_team_name,Tenerife
+69242,2010-05-16,away_team_name,Real Valladolid
+69243,2010-01-16,away_team_name,Sevilla
+69244,2010-05-01,away_team_name,Barcelona
+69247,2010-04-03,away_team_name,Athletic Club
+69250,2009-11-07,away_team_name,Mallorca
+69252,2009-10-17,away_team_name,Barcelona
+69253,2009-10-25,away_team_name,Real Zaragoza
+69254,2009-09-22,away_team_name,Barcelona
+69255,2009-09-26,away_team_name,Barcelona
+69256,2009-10-03,away_team_name,Almería
+69257,2010-03-24,away_team_name,Osasuna
+69259,2010-04-10,away_team_name,Barcelona
+69262,2009-11-29,away_team_name,Real Madrid
+69267,2009-12-02,away_team_name,Barcelona
+69277,2009-10-31,away_team_name,Barcelona
+69288,2009-11-21,away_team_name,Barcelona
+69292,2009-09-19,away_team_name,Atlético Madrid
+69298,2010-03-27,away_team_name,Barcelona
+69210,2010-01-23,home_score,0
+69213,2010-04-17,home_score,0
+69214,2010-04-24,home_score,3
+69218,2009-12-05,home_score,1
+69219,2010-01-10,home_score,0
+69220,2010-01-30,home_score,0
+69221,2010-04-14,home_score,3
+69224,2010-03-14,home_score,3
+69226,2010-03-06,home_score,2
+69227,2010-03-21,home_score,2
+69229,2009-09-12,home_score,0
+69233,2010-02-20,home_score,4
+69237,2010-02-14,home_score,2
+69238,2010-02-27,home_score,2
+69239,2010-05-08,home_score,2
+69240,2010-02-06,home_score,2
+69241,2010-05-04,home_score,4
+69242,2010-05-16,home_score,4
+69243,2010-01-16,home_score,4
+69244,2010-05-01,home_score,1
+69247,2010-04-03,home_score,4
+69250,2009-11-07,home_score,4
+69252,2009-10-17,home_score,0
+69253,2009-10-25,home_score,6
+69254,2009-09-22,home_score,1
+69255,2009-09-26,home_score,0
+69256,2009-10-03,home_score,1
+69257,2010-03-24,home_score,2
+69259,2010-04-10,home_score,0
+69262,2009-11-29,home_score,1
+69267,2009-12-02,home_score,0
+69277,2009-10-31,home_score,1
+69288,2009-11-21,home_score,1
+69292,2009-09-19,home_score,5
+69298,2010-03-27,home_score,0
+69210,2010-01-23,away_score,3
+69213,2010-04-17,away_score,0
+69214,2010-04-24,away_score,1
+69218,2009-12-05,away_score,3
+69219,2010-01-10,away_score,5
+69220,2010-01-30,away_score,1
+69221,2010-04-14,away_score,0
+69224,2010-03-14,away_score,0
+69226,2010-03-06,away_score,2
+69227,2010-03-21,away_score,4
+69229,2009-09-12,away_score,2
+69233,2010-02-20,away_score,0
+69237,2010-02-14,away_score,1
+69238,2010-02-27,away_score,1
+69239,2010-05-08,away_score,3
+69240,2010-02-06,away_score,1
+69241,2010-05-04,away_score,1
+69242,2010-05-16,away_score,0
+69243,2010-01-16,away_score,0
+69244,2010-05-01,away_score,4
+69247,2010-04-03,away_score,1
+69250,2009-11-07,away_score,2
+69252,2009-10-17,away_score,0
+69253,2009-10-25,away_score,1
+69254,2009-09-22,away_score,4
+69255,2009-09-26,away_score,2
+69256,2009-10-03,away_score,0
+69257,2010-03-24,away_score,0
+69259,2010-04-10,away_score,2
+69262,2009-11-29,away_score,0
+69267,2009-12-02,away_score,2
+69277,2009-10-31,away_score,1
+69288,2009-11-21,away_score,1
+69292,2009-09-19,away_score,2
+69298,2010-03-27,away_score,1
