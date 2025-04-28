@@ -12,14 +12,14 @@ def create_normalized_table(conn):
         CREATE TABLE IF NOT EXISTS normalized_matches (
             match_id INTEGER PRIMARY KEY,
             match_date TEXT,
-            team_id INTEGER,
-            team_name TEXT,
-            score INTEGER,
+            home_team_id INTEGER,
+            away_team_id INTEGER,
+            home_score INTEGER,
+            away_score INTEGER,
             stadium_id INTEGER,
-            stadium_name TEXT,
             referee_id INTEGER,
-            referee_name TEXT,
-            FOREIGN KEY (team_id) REFERENCES teams (team_id),
+            FOREIGN KEY (home_team_id) REFERENCES teams (team_id),
+            FOREIGN KEY (away_team_id) REFERENCES teams (team_id),
             FOREIGN KEY (stadium_id) REFERENCES stadiums (stadium_id),
             FOREIGN KEY (referee_id) REFERENCES referees (referee_id)
         )
@@ -27,32 +27,24 @@ def create_normalized_table(conn):
 
     # Insertar datos normalizados
     cursor.execute('''
-        INSERT OR IGNORE INTO normalized_matches
+        INSERT OR IGNORE INTO normalized_matches (
+            match_id, match_date, home_team_id, away_team_id, home_score,
+            away_score, stadium_id, referee_id
+        )
         SELECT
-            match_id,
-            match_date,
-            home_team_id AS team_id,
-            home_team_name AS team_name,
-            home_score AS score,
-            stadium_id,
-            stadium_name,
-            referee_id,
-            referee_name
-        FROM matches
-    ''')
-    cursor.execute('''
-        INSERT OR IGNORE INTO normalized_matches
-        SELECT
-            match_id,
-            match_date,
-            away_team_id AS team_id,
-            away_team_name AS team_name,
-            away_score AS score,
-            stadium_id,
-            stadium_name,
-            referee_id,
-            referee_name
-        FROM matches
+            m.match_id,
+            m.match_date,
+            t1.team_id AS home_team_id,
+            t2.team_id AS away_team_id,
+            m.home_score,
+            m.away_score,
+            s.stadium_id,
+            r.referee_id
+        FROM matches m
+        LEFT JOIN teams t1 ON m.home_team_name = t1.team_name
+        LEFT JOIN teams t2 ON m.away_team_name = t2.team_name
+        LEFT JOIN stadiums s ON m.stadium_name = s.stadium_name
+        LEFT JOIN referees r ON m.referee_name = r.referee_name
     ''')
 
     conn.commit()
