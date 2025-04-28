@@ -1,13 +1,18 @@
 import sys
+import psycopg2
 import os
 import sqlite3
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from dotenv import load_dotenv
-from etl.ingest_data import ingest_data
-from etl.create_dimensions import create_dimensions
-from etl.create_normalized import create_normalized_table
-from etl.s3_utils import download_json_from_s3
-from etl.pivot_data import pivot_data
+from etl.sqlite.ingest_data import ingest_data
+from etl.sqlite.create_dimensions import create_dimensions
+from etl.sqlite.create_normalized import create_normalized_table
+from etl.sqlite.s3_utils import download_json_from_s3
+from etl.sqlite.pivot_data import pivot_data
+
+from etl.Postgre.ingest_data_postgres import ingest_data_postgres
+from etl.Postgre.create_dimensions_postgres import create_dimensions_postgres
+from etl.Postgre.create_normalized_table_postgres import create_normalized_table_postgres
 
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
@@ -15,28 +20,35 @@ load_dotenv()
 # Definir BASE_DIR y ajustar la ruta para apuntar a la carpeta 'data' fuera de 'etl'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_DIR = os.path.join(BASE_DIR, "database")
-DATABASE_PATH = os.path.join(DATABASE_DIR, "laliga.db")
+DATABASE_PATH = os.path.join(DATABASE_DIR, "laliga.sqlite")
 DOWNLOAD_PATH = os.path.join(BASE_DIR, "data", "laliga_2009_2010_matches.json")
 
-def connect_to_sqlite():
-    """Establecer conexión con la base de datos SQLite."""
+
+def connect_to_postgres():
+    """Establecer conexión con la base de datos PostgreSQL."""
     try:
-        print(f"Ruta base: {BASE_DIR}")
-        print(f"Ruta de la carpeta 'database': {DATABASE_DIR}")
-        print(f"Ruta de la base de datos: {DATABASE_PATH}")
+        conn = psycopg2.connect(
+            host=os.getenv("DB_HOST"),
+            port=os.getenv("DB_PORT"),
+            database=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD")
+        )
+        print("Conexión a PostgreSQL exitosa.")
+        return conn
+    except Exception as e:
+        print(f"Error al conectar a PostgreSQL: {e}")
+        sys.exit(1)
 
-        # Crear la carpeta 'database' si no existe
-        if not os.path.exists(DATABASE_DIR):
-            os.makedirs(DATABASE_DIR)
-            print(f"Carpeta 'database' creada en: {DATABASE_DIR}")
-        else:
-            print(f"La carpeta 'database' ya existe en: {DATABASE_DIR}")
 
+def connect_to_sqlite():
+    
+    try:
         conn = sqlite3.connect(DATABASE_PATH)
         print(f"Conexión a SQLite exitosa. Base de datos creada en: {DATABASE_PATH}")
         return conn
     except Exception as e:
-        print(f"Error al conectar a SQLite: {e}")
+        print(f"Error connecting to SQLite: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
@@ -59,10 +71,19 @@ if __name__ == "__main__":
     # Descargar el archivo JSON desde S3
     download_json_from_s3(BUCKET_NAME, OBJECT_KEY, DOWNLOAD_PATH, AWS_ACCESS_KEY, AWS_SECRET_KEY)
 
-    # Conectar a SQLite
-    conn = connect_to_sqlite()
 
-    # Ejecutar el pipeline
+    use_postgres = os.getenv("USE_POSTGRES", "false").lower() == "true"
+
+    # Conectar a SQLite
+if use_postgres:
+    conn = connect_to_postgres()
+
+
+    ingest_data_postgres(conn)
+    create_dimensions_postgres(conn)
+    create_normalized_table_postgres(conn)
+else:
+    conn = connect_to_sqlite()
     ingest_data(conn)
     create_dimensions(conn)
     create_normalized_table(conn)

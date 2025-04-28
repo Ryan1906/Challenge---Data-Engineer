@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: laliga
     volumes:
-      - ./data/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+      - ./postgres/seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
   etl:
     build:
@@ -26,3 +26,8 @@ services:
       DB_NAME: laliga
       DB_USER: postgres
       DB_PASSWORD: postgres
+    volumes:
+      - .:/app
+    command: >
+      sh -c "until pg_isready -h postgres -p 5432; do echo 'Esperando a PostgreSQL...'; sleep 2; done &&
+      python etl/main.py"
