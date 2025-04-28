@@ -1,8 +1,10 @@
 import sqlite3
 from etl.config import DB_PATH
-
-def create_dimensions():
-    conn = sqlite3.connect(DB_PATH)
+def create_dimensions(conn):
+    """
+    Crea las tablas dimensionales en la base de datos SQLite.
+    :param conn: Conexión activa a la base de datos SQLite.
+    """
     cursor = conn.cursor()
 
     # Crear tabla de equipos
@@ -36,5 +38,5 @@ def create_dimensions():
     cursor.execute('INSERT OR IGNORE INTO referees SELECT DISTINCT referee_id, referee_name FROM matches')
 
     conn.commit()
-    conn.close()
+    cursor.close()
     print("Tablas dimensionales creadas correctamente.")

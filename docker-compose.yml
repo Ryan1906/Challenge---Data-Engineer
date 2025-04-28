@@ -1,26 +1,28 @@
 version: '3.8'
+
 services:
-  db:
+  postgres:
     image: postgres:latest
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: laliga_user
-      POSTGRES_PASSWORD: laliga_pass
-      POSTGRES_DB: laliga
+    container_name: postgres_container
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: laliga
     volumes:
-      - ./database:/docker-entrypoint-initdb.d
+      - ./data/seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
   etl:
     build:
       context: .
-      dockerfile: Dockerfile.etl
+      dockerfile: Dockerfile
+    container_name: etl_container
     depends_on:
-      - db
+      - postgres
     environment:
-      DB_HOST: db
+      DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: laliga
-      DB_USER: laliga_user
-      DB_PASSWORD: laliga_pass
+      DB_USER: postgres
+      DB_PASSWORD: postgres

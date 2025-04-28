@@ -1,17 +1,18 @@
 import json
 import sqlite3
 from etl.config import DB_PATH
+def ingest_data(conn):
+    """
+    Ingresa datos desde un archivo JSON a la base de datos.
+    :param conn: Conexión activa a la base de datos SQLite.
+    """
+    import json
 
-def ingest_data():
     # Leer el archivo JSON
     with open('data/laliga_2009_2010_matches.json', 'r', encoding='utf-8') as file:
         matches = json.load(file)
 
-    # Conectar a la base de datos SQLite
-    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute('DROP TABLE IF EXISTS matches')
-
 
     # Crear la tabla base
     cursor.execute('''
@@ -56,7 +57,6 @@ def ingest_data():
             match['referee']['name']
         ))
 
-    # Guardar cambios y cerrar conexión
     conn.commit()
-    conn.close()
+    cursor.close()
     print("Datos ingresados correctamente en la tabla base.")

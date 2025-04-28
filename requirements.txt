@@ -6,3 +6,4 @@ pandas
 sqlalchemy
 python-dotenv
 dotenv
+psycopg2-binary
