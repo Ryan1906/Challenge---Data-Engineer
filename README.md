@@ -96,7 +96,9 @@ The pipeline will automatically execute within the `etl_container`.
 - Use SQL commands to inspect the tables:
   ```sql
   \dt
-  SELECT * FROM matches LIMIT 10;
+  SELECT * FROM table_name LIMIT 10;
+  /*Matches count*/
+  SELECT COUNT(*) FROM table_name;
   ```
 
 ---
