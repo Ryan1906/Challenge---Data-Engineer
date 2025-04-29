@@ -86,7 +86,7 @@ The pipeline will automatically execute within the `etl_container`.
 
 ### SQLite
 - The SQLite database file is located in the `laliga.sqlite` directory.
-- You can open it with tools like **DB Browser for SQLite**.
+- You can open it with tools like **SQLite Viewer**.
 
 ### PostgreSQL
 - Connect to the PostgreSQL container:
