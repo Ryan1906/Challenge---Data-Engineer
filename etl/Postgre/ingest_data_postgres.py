@@ -1,17 +1,14 @@
 def ingest_data_postgres(conn):
-    """
-    Ingresa datos desde un archivo JSON a la base de datos PostgreSQL.
-    :param conn: Conexión activa a la base de datos PostgreSQL.
-    """
+ 
     import json
 
-    # Leer el archivo JSON
+    # Reading the JSON file
     with open('data/laliga_2009_2010_matches.json', 'r', encoding='utf-8') as file:
         matches = json.load(file)
 
     cursor = conn.cursor()
 
-    # Crear la tabla base si no existe
+    # Create the base table if it doesn't exist
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS matches (
             match_id SERIAL PRIMARY KEY,
@@ -34,7 +31,7 @@ def ingest_data_postgres(conn):
         )
     ''')
 
-    # Insertar equipos en la tabla de dimensiones
+    # Ingest dimensional data for teams
     teams = set()
     for match in matches:
         teams.add(match['home_team']['home_team_name'])
@@ -47,7 +44,7 @@ def ingest_data_postgres(conn):
             ON CONFLICT (team_name) DO NOTHING
         ''', (team,))
 
-    # Insertar estadios en la tabla de dimensiones
+    # Ingest dimensional data for stadiums
     stadiums = set(match['stadium']['name'] for match in matches)
     for stadium in stadiums:
         cursor.execute('''
@@ -56,7 +53,7 @@ def ingest_data_postgres(conn):
             ON CONFLICT (stadium_name) DO NOTHING
         ''', (stadium,))
 
-    # Insertar árbitros en la tabla de dimensiones
+    # Ingest dimensional data for referees
     referees = set(match['referee']['name'] for match in matches)
     for referee in referees:
         cursor.execute('''
@@ -103,4 +100,4 @@ def ingest_data_postgres(conn):
 
     conn.commit()
     cursor.close()
-    print("Datos ingresados correctamente en PostgreSQL.")
+    print("Ingested data into PostgreSQL successfully.")

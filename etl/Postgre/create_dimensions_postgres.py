@@ -1,11 +1,8 @@
 def create_dimensions_postgres(conn):
-    """
-    Crear y llenar las tablas de dimensiones en PostgreSQL.
-    :param conn: Conexión activa a la base de datos PostgreSQL.
-    """
+
     cursor = conn.cursor()
 
-    # Crear tabla de equipos
+    # Create table for teams
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS teams (
             team_id SERIAL PRIMARY KEY,
@@ -13,7 +10,7 @@ def create_dimensions_postgres(conn):
         )
     ''')
 
-    # Crear tabla de estadios
+    # Create table for stadiums
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS stadiums (
             stadium_id SERIAL PRIMARY KEY,
@@ -29,7 +26,7 @@ def create_dimensions_postgres(conn):
         )
     ''')
 
-    # Insertar datos únicos en las tablas de dimensiones desde la tabla matches
+    # Insert the unique data into the dimension tables from the matches table
     cursor.execute('''
         INSERT INTO teams (team_name)
         SELECT DISTINCT home_team_name
@@ -60,4 +57,4 @@ def create_dimensions_postgres(conn):
 
     conn.commit()
     cursor.close()
-    print("Tablas dimensionales creadas y llenadas correctamente en PostgreSQL.")
+    print("Dimensional tables created and populated successfully in PostgreSQL.")

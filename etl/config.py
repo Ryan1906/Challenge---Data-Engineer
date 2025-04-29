@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-# Cargar variables de entorno
+# Load environment variables from .env file
 load_dotenv()
 
-# Configuración de paths
+# Path configuration
 DATA_FOLDER = os.path.join(os.getcwd(), 'data')
 DATABASE_FOLDER = os.path.join(os.getcwd(), 'database')
 DB_PATH = os.getenv("DB_PATH", "etl/laliga.db")
@@ -14,7 +14,7 @@ DB_NAME = os.getenv("DB_NAME", "laliga")
 DB_USER = os.getenv("DB_USER", "laliga_user")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "laliga_pass")
 
-# Configuración de S3 (ahora viene del .env)
+# S3 configuration
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_OBJECT_KEY = os.getenv('S3_OBJECT_KEY')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')

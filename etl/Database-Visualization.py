@@ -1,14 +1,13 @@
 import sqlite3
 import pandas as pd
 
-# Conectar
+# Connecting to the SQLite database
 conn = sqlite3.connect('laliga.db')
 
-# Leer tabla
+# Reading data from the 'matches' table
 df = pd.read_sql_query("SELECT * FROM matches", conn)
 
-# Mostrar
+# Showing the first few rows of the DataFrame
 print(df)
 
-# Cerrar conexión
 conn.close()

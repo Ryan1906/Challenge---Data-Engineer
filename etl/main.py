@@ -14,10 +14,10 @@ from etl.Postgre.ingest_data_postgres import ingest_data_postgres
 from etl.Postgre.create_dimensions_postgres import create_dimensions_postgres
 from etl.Postgre.create_normalized_table_postgres import create_normalized_table_postgres
 
-# Cargar variables de entorno desde el archivo .env
+
 load_dotenv()
 
-# Definir BASE_DIR y ajustar la ruta para apuntar a la carpeta 'data' fuera de 'etl'
+# Configuration of paths and database
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_DIR = os.path.join(BASE_DIR, "database")
 DATABASE_PATH = os.path.join(DATABASE_DIR, "laliga.sqlite")
@@ -25,7 +25,7 @@ DOWNLOAD_PATH = os.path.join(BASE_DIR, "data", "laliga_2009_2010_matches.json")
 
 
 def connect_to_postgres():
-    """Establecer conexión con la base de datos PostgreSQL."""
+  
     try:
         conn = psycopg2.connect(
             host=os.getenv("DB_HOST"),
@@ -34,10 +34,10 @@ def connect_to_postgres():
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PASSWORD")
         )
-        print("Conexión a PostgreSQL exitosa.")
+        print("ProstgreSQL connection successful.")
         return conn
     except Exception as e:
-        print(f"Error al conectar a PostgreSQL: {e}")
+        print(f"Error connecting to Postgresql {e}")
         sys.exit(1)
 
 
@@ -45,14 +45,14 @@ def connect_to_sqlite():
     
     try:
         conn = sqlite3.connect(DATABASE_PATH)
-        print(f"Conexión a SQLite exitosa. Base de datos creada en: {DATABASE_PATH}")
+        print(f"Sqlite Connection Succesfuly completed: {DATABASE_PATH}")
         return conn
     except Exception as e:
         print(f"Error connecting to SQLite: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
-    # Configuración de S3 desde el archivo .env
+    # Load environment variables
     BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
     OBJECT_KEY = os.getenv("OBJECT_KEY")
     AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
@@ -62,19 +62,19 @@ if __name__ == "__main__":
     print(f"OBJECT_KEY: {OBJECT_KEY}")
     print(f"DOWNLOAD_PATH: {DOWNLOAD_PATH}")
 
-    # Crear la carpeta 'data' si no existe
+    # Create the data directory if it doesn't exist
     download_dir = os.path.dirname(DOWNLOAD_PATH)
     if not os.path.exists(download_dir):
         os.makedirs(download_dir)
         print(f"Carpeta 'data' creada en: {download_dir}")
 
-    # Descargar el archivo JSON desde S3
+    # Download the JSON file from S3
     download_json_from_s3(BUCKET_NAME, OBJECT_KEY, DOWNLOAD_PATH, AWS_ACCESS_KEY, AWS_SECRET_KEY)
 
 
     use_postgres = os.getenv("USE_POSTGRES", "false").lower() == "true"
 
-    # Conectar a SQLite
+    # Connect to the database
 if use_postgres:
     conn = connect_to_postgres()
 

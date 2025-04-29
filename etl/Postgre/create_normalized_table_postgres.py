@@ -1,11 +1,8 @@
 def create_normalized_table_postgres(conn):
-    """
-    Crear una tabla normalizada en PostgreSQL.
-    :param conn: Conexión activa a la base de datos PostgreSQL.
-    """
+
     cursor = conn.cursor()
 
-    # Crear tabla normalizada
+    # Create the normalized_matches table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS normalized_matches (
             match_id INTEGER,
@@ -24,7 +21,7 @@ def create_normalized_table_postgres(conn):
         )
     ''')
 
-    # Insertar datos normalizados para equipos locales
+    # Insert data for home teams
     cursor.execute('''
         INSERT INTO normalized_matches (
             match_id, match_date, team_id, team_name, score,
@@ -43,7 +40,7 @@ def create_normalized_table_postgres(conn):
         FROM matches
     ''')
 
-    # Insertar datos normalizados para equipos visitantes
+    # Insert data for away teams
     cursor.execute('''
         INSERT INTO normalized_matches (
             match_id, match_date, team_id, team_name, score,
@@ -64,4 +61,4 @@ def create_normalized_table_postgres(conn):
 
     conn.commit()
     cursor.close()
-    print("Tabla normalizada creada correctamente en PostgreSQL.")
+    print("Normalized table created and data inserted successfully in PostgreSQL.")

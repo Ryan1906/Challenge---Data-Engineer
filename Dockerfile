@@ -1,19 +1,19 @@
-# Usar una imagen base de Python
+# Use the official Python image from Docker Hub
 FROM python:3.9-slim
 
-# Establecer el directorio de trabajo
+# Establish the environment variable for Python to not buffer output
 WORKDIR /app
 
-# Instalar las herramientas de cliente de PostgreSQL y otras dependencias
+# Instal thwe necessary system dependencies
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar los archivos del proyecto
+# Copy the requirements file to the container
 COPY . /app
 
-# Instalar las dependencias de Python
+# Instal the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Comando por defecto para ejecutar el script ETL
+# Comand for running the ETL process
 CMD ["python", "etl/main.py"]

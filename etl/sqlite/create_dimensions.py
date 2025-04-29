@@ -7,7 +7,7 @@ def create_dimensions(conn):
     """
     cursor = conn.cursor()
 
-    # Crear tabla de equipos
+    # Create team table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS teams (
             team_id INTEGER PRIMARY KEY,
@@ -15,7 +15,7 @@ def create_dimensions(conn):
         )
     ''')
 
-    # Crear tabla de estadios
+    # Create stadium table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS stadiums (
             stadium_id INTEGER PRIMARY KEY,
@@ -23,7 +23,7 @@ def create_dimensions(conn):
         )
     ''')
 
-    # Crear tabla de árbitros
+    # Create referee table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS referees (
             referee_id INTEGER PRIMARY KEY,
@@ -31,7 +31,7 @@ def create_dimensions(conn):
         )
     ''')
 
-    # Insertar datos únicos en las tablas dimensionales
+    # Insert unique data into the dimension tables from the matches table
     cursor.execute('INSERT OR IGNORE INTO teams SELECT DISTINCT home_team_id, home_team_name FROM matches')
     cursor.execute('INSERT OR IGNORE INTO teams SELECT DISTINCT away_team_id, away_team_name FROM matches')
     cursor.execute('INSERT OR IGNORE INTO stadiums SELECT DISTINCT stadium_id, stadium_name FROM matches')
@@ -39,4 +39,4 @@ def create_dimensions(conn):
 
     conn.commit()
     cursor.close()
-    print("Tablas dimensionales creadas correctamente.")
+    print("Dimensional tables created and populated successfully in SQLite.")

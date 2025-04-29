@@ -14,7 +14,7 @@ def ingest_data(conn):
 
     cursor = conn.cursor()
 
-    # Crear la tabla base
+    # Create the base table if it doesn't exist
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS matches (
             match_id INTEGER PRIMARY KEY,
@@ -33,7 +33,7 @@ def ingest_data(conn):
         )
     ''')
 
-    # Insertar datos en la tabla base
+    # Insert teams into the dimension table
     for match in matches:
         cursor.execute('''
             INSERT OR IGNORE INTO matches (
@@ -59,4 +59,4 @@ def ingest_data(conn):
 
     conn.commit()
     cursor.close()
-    print("Datos ingresados correctamente en la tabla base.")
+    print("Data ingested successfully into the matches table.")

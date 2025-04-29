@@ -1,13 +1,10 @@
 import sqlite3
 from etl.config import DB_PATH
 def create_normalized_table(conn):
-    """
-    Crea una tabla normalizada en la base de datos SQLite.
-    :param conn: Conexión activa a la base de datos SQLite.
-    """
+
     cursor = conn.cursor()
 
-    # Crear tabla normalizada
+    # Create the normalized_matches table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS normalized_matches (
             match_id INTEGER PRIMARY KEY,
@@ -25,7 +22,7 @@ def create_normalized_table(conn):
         )
     ''')
 
-    # Insertar datos normalizados
+    # Insert data into the normalized_matches table
     cursor.execute('''
         INSERT OR IGNORE INTO normalized_matches (
             match_id, match_date, home_team_id, away_team_id, home_score,
@@ -49,4 +46,4 @@ def create_normalized_table(conn):
 
     conn.commit()
     cursor.close()
-    print("Tabla normalizada creada correctamente.")
+    print("Normalized table created and data inserted successfully.")
