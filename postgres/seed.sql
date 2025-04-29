@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS matches CASCADE;
 DROP TABLE IF EXISTS teams CASCADE;
 DROP TABLE IF EXISTS stadiums CASCADE;
 DROP TABLE IF EXISTS referees CASCADE;
+
 -- Crear tabla de equipos
 CREATE TABLE IF NOT EXISTS teams (
     team_id SERIAL PRIMARY KEY,
@@ -34,9 +35,5 @@ CREATE TABLE IF NOT EXISTS matches (
     stadium_id INTEGER,
     stadium_name TEXT,
     referee_id INTEGER,
-    referee_name TEXT,
-    FOREIGN KEY (home_team_id) REFERENCES teams (team_id),
-    FOREIGN KEY (away_team_id) REFERENCES teams (team_id),
-    FOREIGN KEY (stadium_id) REFERENCES stadiums (stadium_id),
-    FOREIGN KEY (referee_id) REFERENCES referees (referee_id)
+    referee_name TEXT
 );

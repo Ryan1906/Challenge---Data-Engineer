@@ -8,12 +8,13 @@ This project implements an ETL (Extract, Transform, Load) pipeline that processe
 ## Prerequisites
 
 1. **Install Docker and Docker Compose**:
+   - Python 3.9 (recommended)
    - [Docker](https://www.docker.com/products/docker-desktop)
    - [Docker Compose](https://docs.docker.com/compose/install/)
 
 2. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/Challenge---Data-Engineer.git
+   git clone https://github.com/Ryan1906/Challenge---Data-Engineer.git
    cd Challenge---Data-Engineer
    ```
 
@@ -121,3 +122,8 @@ The pipeline will automatically execute within the `etl_container`.
   pip install -r requirements.txt
   ```
 
+## ER Diagram
+
+In the next image, you can see the ER diagram of the project
+
+![alt text](<ER Diagram/LaLiga-ER.png>)
